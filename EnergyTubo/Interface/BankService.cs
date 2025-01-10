@@ -23,11 +23,10 @@ namespace EnergyTubo.Interface
 
             httpClient.DefaultRequestHeaders.CacheControl = CacheControlHeaderValue.Parse("no-cache");
 
-            if(string.IsNullOrEmpty (config.GetSection("Key").Value))
+            if(Key != null)
             {
                 config.GetSection("Key").Value = Key;
             }
-
             httpClient.DefaultRequestHeaders.Add("KeyName", config.GetSection("Key").Value);
             var url = "https://apiplayground.alat.ng/debit-wallet/api/Shared/GetAllBanks";
             
