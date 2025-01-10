@@ -1,0 +1,32 @@
+networks:
+  turboapp:
+
+services:
+  energyTurboDb:
+    container_name: turbo-db
+    image: mcr.microsoft.com/mssql/server
+    ports:
+     - 8005:1433
+    environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=MyVeryStrongPassword1#2*3!
+    
+    networks:
+     - turboapp
+  energytubo:
+    container_name: student-api
+    image: ${DOCKER_REGISTRY-}energytubo
+    build:
+      context: .
+      dockerfile: EnergyTubo/Dockerfile
+    ports:
+     - 8006:8081
+    depends_on:
+     - energyTurboDb
+     
+    environment:
+     - DB_HOST=energyTurboDb
+     - DB_NAME=turbodb
+     - DB_SA_PASSWORD=MyVeryStrongPassword1#2*3!
+    networks:
+     - turboapp
