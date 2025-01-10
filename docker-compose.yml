@@ -9,7 +9,7 @@ services:
      - 8005:1433
     environment:
      - ACCEPT_EULA=Y
-     - MSSQL_SA_PASSWORD=MyVeryStrongPassword1#2*3!
+     - MSSQL_SA_PASSWORD=MyVeryStrongPassword123!
     
     networks:
      - turboapp
@@ -27,6 +27,6 @@ services:
     environment:
      - DB_HOST=energyTurboDb
      - DB_NAME=turbodb
-     - DB_SA_PASSWORD=MyVeryStrongPassword1#2*3!
+     - DB_SA_PASSWORD=MyVeryStrongPassword123!
     networks:
      - turboapp

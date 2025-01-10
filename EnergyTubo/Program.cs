@@ -5,11 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TurboDbConnection")));
 
 // Add services to the container.
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+var connectionString = $"Data Source={dbHost};Initial Catalog={dbName};User ID=sa;Password={dbPassword};Encrypt=false;Trustservercertificate=true;";
+builder.Services.AddDbContext<AppDBContext>(opt => opt.UseSqlServer((connectionString),
+    sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
 
-//builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IStateService, StateService>();
@@ -48,12 +52,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
-var dbName = Environment.GetEnvironmentVariable("DB_NAME");
-var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
-var connectionString = $"Data Source={dbHost};Initial Catalog={dbName};User ID=sa;Password=MyVeryStrongPassword1#2*3!;Encrypt=false;Trustservercertificate=true;";
-builder.Services.AddDbContext<AppDBContext>(opt => opt.UseSqlServer((connectionString),
-    sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
+
 
 builder.Services.AddSession(options =>
 {

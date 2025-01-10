@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 
 
 namespace EnergyTubo.Models
@@ -9,17 +11,25 @@ namespace EnergyTubo.Models
         public AppDBContext(DbContextOptions<AppDBContext> options)
             :base(options)
         {
+            try
+            {
+                var databaseCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+                if (databaseCreator != null)
+                {
+                    if (!databaseCreator.CanConnect()) databaseCreator.Create();
+                    if (!databaseCreator.HasTables()) databaseCreator.CreateTables();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
         }
 
-        //public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<State> States { get; set; }
         public virtual DbSet<LGA> LGAs { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+        public virtual DbSet<State> States { get; set; }
+        
 
     }
 }

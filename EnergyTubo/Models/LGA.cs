@@ -16,7 +16,7 @@ namespace EnergyTubo.Models
         public int StateId { get; set; }
         public State? State { get;}
 
-        public IList<Student> Student { get; } = new List<Student>();
+        //public IList<Student> Student { get; } = new List<Student>();
         public IList<ApplicationUser> ApplicationUser { get; } = new List<ApplicationUser>();
     }
 
