@@ -27,7 +27,7 @@ namespace EnergyTubo.Interface
             {
                 config.GetSection("Key").Value = Key;
             }
-            httpClient.DefaultRequestHeaders.Add("KeyName", config.GetSection("Key").Value);
+            httpClient.DefaultRequestHeaders.Add(config.GetSection("KeyName").Value, config.GetSection("Key").Value);
             var url = "https://apiplayground.alat.ng/debit-wallet/api/Shared/GetAllBanks";
             
             return await httpClient.GetFromJsonAsync<Bank>(url);

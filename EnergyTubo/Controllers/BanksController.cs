@@ -20,6 +20,8 @@ namespace EnergyTubo.Controllers
             this.bankService = BankService;
         }
 
+        
+
         [HttpGet]
         public async Task<ActionResult<Bank>> GetBanks(string key = null)
         {
@@ -31,15 +33,19 @@ namespace EnergyTubo.Controllers
             
 
             
-            bank = (await bankService.GetBanks(key));
+           var result = (await bankService.GetBanks(key));
             
 
-            if (bank != null && bank.HasError)
+            if (result != null && result.HasError)
             {
                 return BadRequest(bank.ErrorMessage);
             }
 
-             return Ok(bank.Result);
+           
+
+                return Ok(result);
+
+             return Ok(bank);
                   
             }
             catch (Exception ex)
@@ -48,5 +54,9 @@ namespace EnergyTubo.Controllers
                     );
             }
         }
+
+
+        
+
     }
 }
