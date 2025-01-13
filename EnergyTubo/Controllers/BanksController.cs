@@ -23,7 +23,7 @@ namespace EnergyTubo.Controllers
         
 
         [HttpGet]
-        public async Task<ActionResult<Bank>> GetBanks(string key = null)
+        public async Task<ActionResult<Bank>> GetBanks()
         {
            
             Bank bank = new Bank();
@@ -33,19 +33,19 @@ namespace EnergyTubo.Controllers
             
 
             
-           var result = (await bankService.GetBanks(key));
+           bank = (await bankService.GetBanks());
             
 
-            if (result != null && result.HasError)
+            if (bank != null && bank.HasError)
             {
                 return BadRequest(bank.ErrorMessage);
             }
 
            
 
-                return Ok(result);
+                return Ok(bank);
 
-             return Ok(bank);
+             
                   
             }
             catch (Exception ex)

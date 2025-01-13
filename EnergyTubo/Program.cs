@@ -2,6 +2,7 @@ using EnergyTubo.Interface;
 using EnergyTubo.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IStateService, StateService>();
 builder.Services.AddScoped<ILgaService, LgaService>();
 builder.Services.AddScoped<IBankService, BankService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+
 
 
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
@@ -36,8 +39,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 
-builder.Services.AddControllers();
-
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

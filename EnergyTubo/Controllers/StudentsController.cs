@@ -18,31 +18,34 @@ namespace EnergyTubo.Controllers
 
         private readonly IStateService StateService;
         private readonly ILgaService LGAService;
+        private readonly IStudentService StudentService;
 
         public const string MyEmail = "_Email";
         public const string OtpText = "_Otp";
 
 
-        public StudentsController(UserManager<ApplicationUser> userManager, IStateService StateService, 
-            ILgaService lgaService)
+        public StudentsController(UserManager<ApplicationUser> userManager,
+            IStudentService studentservice, IStateService stateService, ILgaService lgaService)
         {
-            this._userManager = userManager;
-            this.StateService = StateService;
-            this.LGAService = lgaService;
+            _userManager = userManager;
+            StateService = stateService;
+            LGAService = lgaService;
+            StudentService = studentservice;
+
             
         }
 
 
         [HttpPost("[Action]")]
-        public async Task<IActionResult> RegisterStudent([FromBody] Student userForRegistration)
+        public async Task<IActionResult> RegisterStudent([FromBody] Student student)
         {
-            if (userForRegistration == null || !ModelState.IsValid)
+            if (student == null || !ModelState.IsValid)
                 return BadRequest(new UserResponse { Message = "Bad Request" });
             try
             {
 
 
-                var user = await _userManager.FindByEmailAsync(userForRegistration.Email);
+                var user = await _userManager.FindByEmailAsync(student.Email);
                 if (user != null && user.EmailConfirmed)
                 {
                     return Unauthorized(new UserResponse { Message = "Email is in use" });
@@ -54,23 +57,15 @@ namespace EnergyTubo.Controllers
 
                 }
 
-                user = new ApplicationUser
-                {
-                    PhoneNumber = userForRegistration.PhoneNumber,
-                    Email = userForRegistration.Email,
-                    LgaId = userForRegistration.LgaId,
-                    StateId = userForRegistration.StateId,
-                    UserName = userForRegistration.Email
+                var result = await StudentService.RegisterStudent(student);
+               
 
-                };
-
-                var result = await _userManager.CreateAsync(user, userForRegistration.Password);
-                if (!result.Succeeded)
+                if (!result.IsSucceeded)
                 {
                     return Unauthorized(new UserResponse { Message = "Error, creating the user" });
                 }
 
-              var otp =  CreateSession(userForRegistration.Email);
+              var otp =  CreateSession(result.Email);
 
 
 
@@ -89,7 +84,7 @@ namespace EnergyTubo.Controllers
         }
 
         [HttpGet("[action]")]
-            public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
+            public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudent()
         {
             List<StudentDTO> studentList = new List<StudentDTO>();
 
@@ -108,10 +103,13 @@ namespace EnergyTubo.Controllers
                         Lga = lga.Name
                     };
 
-                    studentList.Add(StudentDTO);
+                     
+
+                   studentList.Add(StudentDTO);
 
 
                 }
+
                 return Ok(studentList);
             }
 

@@ -18,15 +18,14 @@ namespace EnergyTubo.Interface
             httpClient = HttpClient;
             config = Config;
         }
-        public async Task<Bank> GetBanks(string Key)
+        public async Task<Bank> GetBanks()
         {
 
             httpClient.DefaultRequestHeaders.CacheControl = CacheControlHeaderValue.Parse("no-cache");
 
-            if(Key != null)
-            {
-                config.GetSection("Key").Value = Key;
-            }
+            
+
+            var rs = config.GetSection("Key").Value;
             httpClient.DefaultRequestHeaders.Add(config.GetSection("KeyName").Value, config.GetSection("Key").Value);
             var url = "https://apiplayground.alat.ng/debit-wallet/api/Shared/GetAllBanks";
             
@@ -34,6 +33,7 @@ namespace EnergyTubo.Interface
 
         }
 
+        
     }
 }
 
