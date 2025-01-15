@@ -10,7 +10,7 @@ namespace EnergyTubo.Controllers
     public class StatesController : ControllerBase
     {
         private readonly IStateService StateService;
-        private readonly ILgaService LGAService;
+        //private readonly ILgaService LGAService;
 
         public StatesController(IStateService StateService)
         {
@@ -22,7 +22,7 @@ namespace EnergyTubo.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult<IEnumerable<State>>> GetState()
+        public async Task<ActionResult<IEnumerable<State>>> Get()
         {
             try
             {
@@ -39,6 +39,21 @@ namespace EnergyTubo.Controllers
 
 
 
+        [HttpGet ("[action]")]
+
+        public async Task<ActionResult<State>> GetStateById(int stateId)
+        {
+            try
+            {
+
+                return Ok(await StateService.GetStateById(stateId));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult<State>> CreateState(State State)
@@ -53,7 +68,7 @@ namespace EnergyTubo.Controllers
 
                 var createdCandidateService = await StateService.AddState(State);
 
-                return CreatedAtAction(nameof(GetState),
+                return CreatedAtAction(nameof(Get),
                     new { id = createdCandidateService.Id }, createdCandidateService);
             }
             catch (Exception ex)

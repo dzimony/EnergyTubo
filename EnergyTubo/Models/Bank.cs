@@ -2,12 +2,12 @@
 {
     public class Bank
     {
-      public List<Result> Result { get; set; }
-      public string ErrorMessage { get; set; }
-      public string[] ErrorMessages { get; set; }
+      public List<Result> Result { get; }
+      public string ErrorMessage { get; }
+      public string[] ErrorMessages { get;}
 
-     public bool HasError { get; set; } = false;
-     public string TimeGenerated { get; set; }
+     public bool HasError { get; } = false;
+     public string TimeGenerated { get; }
     }
 }
 

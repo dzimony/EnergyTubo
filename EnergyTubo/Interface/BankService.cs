@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-
-
 namespace EnergyTubo.Interface
 {
     public class BankService : IBankService

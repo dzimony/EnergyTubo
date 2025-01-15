@@ -16,8 +16,7 @@ namespace EnergyTubo.Controllers
 
         
 
-        private readonly IStateService StateService;
-        private readonly ILgaService LGAService;
+       
         private readonly IStudentService StudentService;
 
         public const string MyEmail = "_Email";
@@ -28,8 +27,7 @@ namespace EnergyTubo.Controllers
             IStudentService studentservice, IStateService stateService, ILgaService lgaService)
         {
             _userManager = userManager;
-            StateService = stateService;
-            LGAService = lgaService;
+            
             StudentService = studentservice;
 
             

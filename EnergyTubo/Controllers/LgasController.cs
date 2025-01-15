@@ -24,7 +24,7 @@ namespace EnergyTubo.Controllers
             try
             {
 
-                return Ok(await LGAService.GetLGAs( stateId));
+                return Ok(await LGAService.GetLGAs(stateId));
             }
             catch (Exception)
             {
