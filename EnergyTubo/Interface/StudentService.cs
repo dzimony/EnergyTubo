@@ -23,7 +23,6 @@ namespace EnergyTubo.Interface
         public async Task<RegisterDTO> RegisterStudent(Student student)
         {
             RegisterDTO registerDTO = new RegisterDTO();
-            //var user = await _userManager.FindByEmailAsync(student.Email);
             var user = new ApplicationUser
 
             {
@@ -52,13 +51,10 @@ namespace EnergyTubo.Interface
         {
             List<StudentDTO> studentList = new List<StudentDTO>();
 
-            //var res = _userManager.Users
-            //     .Include(x => ((ApplicationUser)x).LGA)
-            //     .Include(y => ((ApplicationUser)y).State)
-            //     .ToList();
+            
 
             foreach (var user in _userManager.Users.ToList())
-                //foreach (var user in res)
+               
                 {
                 var state = await StateService.GetStateById(user.StateId);
                 var lga = await LGAService.GetLgaById(user.LgaId);

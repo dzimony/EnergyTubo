@@ -86,42 +86,27 @@ namespace EnergyTubo.Controllers
         [HttpGet("[action]")]
             public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
-            List<StudentDTO> studentList = new List<StudentDTO>();
 
-           // try
-            //{
-                foreach (var user in _userManager.Users.ToList())
-                {
-                    var state = await StateService.GetStateById(user.StateId);
-                    var lga = await LGAService.GetLgaById(user.LgaId);
-                    StudentDTO StudentDTO = new StudentDTO()
-                    {
+            try
+            {
+                
 
-                        Phone = user.PhoneNumber,
-                        Email = user.Email,
-                        State = state.Name,
-                        Lga = lga.Name
-                    };
-
-                     
-
-                   studentList.Add(StudentDTO);
 
                     var students = StudentService.GetStudent();
 
-                }
+               
 
                 var studentL = await StudentService.GetStudent();
                 return Ok(studentL);
 
-                return Ok(studentList);
-            //}
+                
+            }
 
-            //catch (Exception ex)
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError,
-            //        "Error, please check your input");
-            //}
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error, please check your input");
+            }
         }
 
 

@@ -10,6 +10,5 @@ namespace EnergyTubo.Models
         public string Name { get; set; }
         public IList<LGA> LGA { get; } = new List<LGA>();
         public IList<ApplicationUser> ApplicationUser { get; } = new List<ApplicationUser>();
-        //public IList<Student> Student { get; } = new List<Student>();
     }
 }
