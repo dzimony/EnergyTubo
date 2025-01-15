@@ -84,12 +84,12 @@ namespace EnergyTubo.Controllers
         }
 
         [HttpGet("[action]")]
-            public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudent()
+            public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
             List<StudentDTO> studentList = new List<StudentDTO>();
 
-            try
-            {
+           // try
+            //{
                 foreach (var user in _userManager.Users.ToList())
                 {
                     var state = await StateService.GetStateById(user.StateId);
@@ -107,17 +107,21 @@ namespace EnergyTubo.Controllers
 
                    studentList.Add(StudentDTO);
 
+                    var students = StudentService.GetStudent();
 
                 }
 
-                return Ok(studentList);
-            }
+                var studentL = await StudentService.GetStudent();
+                return Ok(studentL);
 
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error, please check your input");
-            }
+                return Ok(studentList);
+            //}
+
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //        "Error, please check your input");
+            //}
         }
 
 
@@ -138,7 +142,7 @@ namespace EnergyTubo.Controllers
 
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<State>> VerifyPhone(string Code)
+        public async Task<ActionResult> VerifyPhone(string Code)
         {
             string otp = HttpContext.Session.GetString(OtpText);
             string email = HttpContext.Session.GetString(MyEmail);

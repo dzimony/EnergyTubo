@@ -19,11 +19,11 @@ namespace EnergyTubo.Models
         [Required(ErrorMessage = "State is required.")]
         //[ForeignKey("StateId")]
         public int StateId { get; set; }
-       // public State? State { get; }
+        public State? State { get; }
         [Required(ErrorMessage = "LGA is required.")]
         //[ForeignKey("LgaId")]
         public int LgaId { get; set; }
-        //public LGA? LGA { get; }
+        public LGA? LGA { get; }
         public IList<ApplicationUser> ApplicationUser { get; } = new List<ApplicationUser>();
 
 

@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyTubo", "EnergyTubo\En
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7E425E17-53C1-47D9-982F-5B3D90E4C784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turbo-unit-testing", "..\Turbo-unit-testing\Turbo-unit-testing.csproj", "{49AC5A6D-1E12-428E-A2BA-E686B1F9B7A8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{7E425E17-53C1-47D9-982F-5B3D90E4C784}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E425E17-53C1-47D9-982F-5B3D90E4C784}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E425E17-53C1-47D9-982F-5B3D90E4C784}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49AC5A6D-1E12-428E-A2BA-E686B1F9B7A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49AC5A6D-1E12-428E-A2BA-E686B1F9B7A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49AC5A6D-1E12-428E-A2BA-E686B1F9B7A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49AC5A6D-1E12-428E-A2BA-E686B1F9B7A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

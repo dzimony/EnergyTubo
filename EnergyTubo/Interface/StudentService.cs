@@ -48,6 +48,34 @@ namespace EnergyTubo.Interface
 
         }
 
-        
+        public async Task<IEnumerable<StudentDTO>> GetStudent()
+        {
+            List<StudentDTO> studentList = new List<StudentDTO>();
+
+            //var res = _userManager.Users
+            //     .Include(x => ((ApplicationUser)x).LGA)
+            //     .Include(y => ((ApplicationUser)y).State)
+            //     .ToList();
+
+            foreach (var user in _userManager.Users.ToList())
+                //foreach (var user in res)
+                {
+                var state = await StateService.GetStateById(user.StateId);
+                var lga = await LGAService.GetLgaById(user.LgaId);
+                StudentDTO StudentDTO = new StudentDTO()
+                {
+
+                    Phone = user.PhoneNumber,
+                    Email = user.Email,
+                    State = state.Name,
+                    Lga = lga.Name
+                };
+
+                studentList.Add(StudentDTO);
+            }
+
+            return studentList.ToList();
+
+        }
     }
 }
